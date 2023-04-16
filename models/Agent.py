@@ -1,14 +1,10 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
+from createConnection import Base
 
 class EstateAgent(Base):
-    __tablename__ = 'estate_agent'
-
+    __tablename__ = 'estate_agents'
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    phone = Column(String)
     email = Column(String)
-    office_id = Column(Integer)
-

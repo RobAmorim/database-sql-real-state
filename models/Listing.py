@@ -1,19 +1,16 @@
-from sqlalchemy import Column, Integer, String, Float, Date
+from sqlalchemy import Column, Integer, String, Float, Date, ForeignKey, DateTime
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
+from createConnection import Base
 
-Base = declarative_base()
 
 class House(Base):
-    __tablename__ = 'house'
-
+    __tablename__ = 'houses'
     id = Column(Integer, primary_key=True)
-    seller_name = Column(String)
-    num_bedrooms = Column(Integer)
-    num_bathrooms = Column(Integer)
+    seller_details = Column(String)
+    bedrooms = Column(Integer)
+    bathrooms = Column(Integer)
     listing_price = Column(Float)
     zip_code = Column(String)
-    date_of_listing = Column(Date)
-    estate_agent_id = Column(Integer)
-
-    # sales = relationship("Sale", back_populates="house")
+    date_of_listing = Column(DateTime)
+    estate_agent_id = Column(Integer, ForeignKey('estate_agents.id'))
+    office_id = Column(Integer, ForeignKey('offices.id'))

@@ -1,16 +1,11 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
-from models.Agent import EstateAgent
+from createConnection import Base
 
-Base = declarative_base()
 
 class Office(Base):
-    __tablename__ = 'office'
-
+    __tablename__ = 'offices'
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    location = Column(String)
-
-    # estate_agents = relationship("EstateAgent", back_populates="office")
-
+    address = Column(String)
+    # estate_agent_id = Column(Integer, ForeignKey('estate_agents.id'))
