@@ -2,25 +2,30 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 from models.Office import Office
-from models.Agent import EstateAgent
+from models.Agent import Agent
 from faker import Faker
 
-def populate(session):
+def populate(session, num):
+    """
+    Populates the office table with fake data generated using Faker.
 
-    # Create some offices
+    Args:
+        session (Session): The session to use for adding the data to the database.
+        num (int): The number of office records to generate.
+
+    Returns:
+        None.
+    """
     fake = Faker()
 
-    for i in range(10):
+    # Generate fake offices
+    for i in range(num):
         office = Office(
-        name=fake.company(), 
-        address=fake.address(),
+            name=fake.company(),
+            address=fake.address(),
         )
         session.add(office)
 
     session.commit()
-    print('Office Populated')
+    print(f'{num} offices populated.')
 
-    # Query the database
-    # datas = session.query(Office).all()
-    # for data in datas:
-    #     print("Query offices", data.name, data.address)

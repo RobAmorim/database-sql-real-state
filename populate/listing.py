@@ -2,16 +2,26 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime
 from models.Listing import House
-from models.Agent import EstateAgent
+from models.Agent import Agent
 from models.Office import Office
 from faker import Faker 
 
 
-def populate(session):
+def populate(session, num):
+    """
+    Populates the house table with fake data generated using Faker.
+
+    Args:
+        session (Session): The session to use for adding the data to the database.
+        num (int): The number of house records to generate.
+
+    Returns:
+        None.
+    """
     fake = Faker()
 
-    # Generate 50 fake houses
-    for i in range(200):
+    # Generate fake houses
+    for i in range(num):
         house = House(
             seller_details=fake.name(),
             bedrooms=fake.random_int(min=1, max=5),
@@ -19,15 +29,11 @@ def populate(session):
             listing_price=fake.random_int(min=100000, max=1000000),
             zip_code=fake.zipcode(),
             date_of_listing=fake.date_between(start_date='-1y', end_date='today'),
-            estate_agent_id=fake.random_int(min=1, max=10),  # Assuming 10 estate agents exist
+            agent_id=fake.random_int(min=1, max=10),  # Assuming 10 estate agents exist
             office_id=fake.random_int(min=1, max=10),  # Assuming 10 offices exist
         )
         session.add(house)
 
     session.commit()
-    print('Listing Populated')
+    print(f'{num} houses populated.')
 
-    # Query the database
-    # datas = session.query(House).all()
-    # for data in datas:
-    #     print("House", data.id)

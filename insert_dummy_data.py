@@ -1,14 +1,14 @@
 from models.Office import Office
-from models.Agent import EstateAgent
+from models.Agent import Agent
 from models.Listing import House
 from models.Sale import Sale
 from models.Commission import Commission
 from create import session
 from datetime import datetime
 
-#create Dummy Agent
+#create Dummy Agents
 for i in range(10):
-    estate_agent = EstateAgent(
+    estate_agent = Agent(
     name="Agent"+str(i),
     phone="004545435",
     email="abc@gmail.com"
@@ -18,7 +18,7 @@ for i in range(10):
 session.commit()
 print('Agent Populated Dummy Data')
 
-#Create Dummy Office
+#Create Dummy Offices
 for i in range(10):
     office = Office(
     name="Ben Dummy"+str(i), 
@@ -30,7 +30,7 @@ session.commit()
 print('Office Populated Dummy Data')
 
 
-#Create Dummy House 
+#Create Dummy Houses 
 for i in range(10):
     house = House(
         seller_details="A",
@@ -39,7 +39,7 @@ for i in range(10):
         listing_price=4563475345,
         zip_code=423424,
         date_of_listing=datetime(2023, 4, 15),
-        estate_agent_id=i,  # Assuming 10 estate agents exist
+        agent_id=i,  # Assuming 10 estate agents exist
         office_id=i,  # Assuming 10 offices exist
     )
     session.add(house)
